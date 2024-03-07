@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Tableu Embedded Serbamulia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="stylesheets/style.css"
+    />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"
+      type="text/javascript"
+    ></script>
+    <!-- <script
+      src="https://connectors.tableau.com/libs/tableauwdc-2.3.latest.js"
+      type="text/javascript"
+    ></script> -->
+    <script
+      type="module"
+      src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"
+    ></script>
+  </head>
+  <body>
+    <div class="container container-table">
+      <div class="row vertical-center-row">
+        <form action="/" method="GET" id="formAdd" class="container p-10 py-6">
+          <div class="form-group">
+            <label for="url-input" class="font-bold text-3xl">Tableau Url:</label>
+            <input
+              class="form-control"
+              type="text"
+              id="url-input"
+              name="url-input"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <button id="embed-btn" type="button" class="btn btn-success">
+            Get Embed
+          </button>
+        </form>
+        <div id="embedded-content" class="container mb-10">
+          <tableau-viz
+            id="tableau-viz"
+            token="<%- token %>"
+            width="1311"
+            height="606"
+            hide-tabs
+            toolbar="bottom"
+          ></tableau-viz>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        $("#tableau-viz").attr("src", "<%- url %>");
+        var $form = $("#formAdd");
+        $form.submit(function () {
+          var url = $("#url-input").val();
+          if (url.length < 12) {
+            alert("INPUT ERROR");
+            return false;
+          }
+
+          $("#tableau-viz").attr("src", url);
+          return false;
+        });
+        $("#embed-btn").click(() => {
+          let person = prompt(
+            "HTML Code:",
+            `<tableau-viz 
+            id="tableau-viz"
+            token="<%- token %>"
+            src=${$("#tableau-viz").attr("src")}
+            width="1311"
+            height="606"
+            hide-tabs
+            toolbar="bottom"
+          ></tableau-viz>`
+          );
+        });
+      });
+    </script>
+  </body>
+</html>

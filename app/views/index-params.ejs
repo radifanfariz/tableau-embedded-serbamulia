@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Tableu Embedded Serbamulia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="stylesheets/style.css"
+    />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"
+      type="text/javascript"
+    ></script>
+    <!-- <script
+      src="https://connectors.tableau.com/libs/tableauwdc-2.3.latest.js"
+      type="text/javascript"
+    ></script> -->
+    <script
+      type="module"
+      src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"
+    ></script>
+  </head>
+  <body>
+    <tableau-viz
+      id="tableau-viz"
+      token="<%- token %>"
+      src="<%- url %>"
+      width="1311"
+      height="606"
+      hide-tabs
+      toolbar="bottom"
+    ></tableau-viz>
+  </body>
+</html>
