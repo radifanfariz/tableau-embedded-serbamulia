@@ -4,6 +4,12 @@
 
 ## How to start
 
+```
+npm i
+```
+
+**then**
+
 #### For Development
 
 ```
@@ -12,7 +18,7 @@ npm run build:dev
 #### For Production
 
 ```
-npm run build:prod npm run prod or node index.ts
+npm run build:prod
 ```
 or
 ```

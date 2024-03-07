@@ -9,11 +9,10 @@
   "scripts": {
     "start": "ts-node .",
     "dev": "nodemon index.ts",
-    "prod": "node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "postcss public/stylesheets/tailwind.css -o public/stylesheets/style.css",
     "build:dev": "npm run build:css && npm run dev",
-    "build:prod": "npm run build:css && npm run prod"
+    "build:prod": "npm run build:css && npm run start"
   },
   "keywords": [],
   "author": "",

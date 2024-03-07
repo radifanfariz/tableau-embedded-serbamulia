@@ -536,10 +536,6 @@ video {
   margin-bottom: 2.5rem;
 }
 
-.table {
-  display: table;
-}
-
 .p-10 {
   padding: 2.5rem;
 }
@@ -547,15 +543,6 @@ video {
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
 }
 
 .text-3xl {
