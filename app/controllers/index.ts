@@ -195,8 +195,8 @@ export const embedByParamsLimitedV3 = async (req: any, res: any) => {
                   },
                 };
               }
-            })
-          )
+            }).filter(Boolean)
+          ).filter(Boolean)
         ),
       });
     } else {
