@@ -1,0 +1,3 @@
+INSERT INTO t_tableau_embed_master (n_id, c_title, c_group, c_embed, d_created_at, d_updated_at) VALUES (1, 'TAC', 'Weekly', 'https://prod-apnortheast-a.online.tableau.com/t/serbamuliagroup/views/TACOtomotif/TAC', null, null);
+INSERT INTO t_tableau_embed_master (n_id, c_title, c_group, c_embed, d_created_at, d_updated_at) VALUES (2, 'Test', 'Weekly', 'https://prod-apnortheast-a.online.tableau.com/t/serbamuliagroup/views/TACOtomotif/TAC', '2024-03-12 15:01:49', '2024-03-12 15:01:49');
+INSERT INTO t_tableau_embed_master (n_id, c_title, c_group, c_embed, d_created_at, d_updated_at) VALUES (3, 'Test2', 'SMT', 'https://prod-apnortheast-a.online.tableau.com/t/serbamuliagroup/views/TACOtomotif/TAC', '2024-03-13 10:43:18', '2024-03-13 10:43:18');

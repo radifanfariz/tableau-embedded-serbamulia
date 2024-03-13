@@ -1,0 +1,1 @@
+INSERT INTO t_tableau_embed_v2 (n_id, n_employee_id, c_employee_nik, j_embed, d_created_at, d_updated_at) VALUES (1, 2460, '00.23.05.0083', '["https://prod-apnortheast-a.online.tableau.com/t/serbamuliagroup/views/TACOtomotif/TAC"]', null, null);
