@@ -41,7 +41,7 @@
         name="HeadlineAct"
         id="HeadlineAct"
         class="min-w-52 rounded-lg border-gray-300 text-gray-700 text-lg"
-        x-on:click="(e) => handleOptionClick(e, $data)"
+        x-on:change="(e) => handleOptionClick(e, $data)"
       >
         <option value="">Please select</option>
         <template x-for="(group,groupIndex) in groups" :key="groupIndex">
