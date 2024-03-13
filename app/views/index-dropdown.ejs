@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Tableu Embedded Serbamulia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="stylesheets/style.css"
+    />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <!-- <script
+      src="https://connectors.tableau.com/libs/tableauwdc-2.3.latest.js"
+      type="text/javascript"
+    ></script> -->
+    <script
+      type="module"
+      src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"
+    ></script>
+  </head>
+  <body>
+    <div>
+      <label for="HeadlineAct" class="block text-sm font-medium text-gray-900">
+        Choose Chart
+      </label>
+
+      <select
+        x-data="{groups: [], url: ''}"
+        x-init="groups = getDropdownItem()"
+        name="HeadlineAct"
+        id="HeadlineAct"
+        class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm"
+        x-on:click="(e) => handleOptionClick(e, $data)"
+      >
+        <option value="">Please select</option>
+        <template x-for="(group,groupIndex) in groups" :key="groupIndex">
+          <optgroup :label="group.group">
+            <template x-for="(item,itemIndex) in group.items" :key="itemIndex">
+              <option :value="item.c_embed" x-text="item.c_title"></option>
+            </template>
+          </optgroup>
+        </template>
+      </select>
+    </div>
+    <div>
+      <tableau-viz
+        id="tableau-viz"
+        token="<%- token %>"
+        hide-tabs
+        toolbar="bottom"
+      ></tableau-viz>
+    </div>
+  </body>
+  <script>
+    const getDropdownItem = () => {
+      const jsonData = JSON.parse('<%- master %>');
+
+      // Create an object to store unique items within each group
+      const groupedItems = {};
+
+      // Iterate through each group
+      jsonData.forEach((group) => {
+        // Get the group key (assuming the group is the same for all items in the array)
+        const groupKey = group[0].group;
+
+        // Initialize the group if it doesn't exist
+        if (!groupedItems[groupKey]) {
+          groupedItems[groupKey] = [];
+        }
+
+        // Push unique items into the corresponding group
+        group.forEach((item) => {
+          const existingItemIndex = groupedItems[groupKey].findIndex(
+            (existingItem) => existingItem.n_id === item.items.n_id
+          );
+          if (existingItemIndex === -1) {
+            groupedItems[groupKey].push(item.items);
+          }
+        });
+      });
+
+      // Convert object values back to an array
+      const resultArray = Object.entries(groupedItems).map(
+        ([group, items]) => ({
+          group,
+          items,
+        })
+      );
+
+      return resultArray;
+    };
+    // console.log(getDropdownItem());
+    function handleOptionClick(event, { url }) {
+      url = event.target.value;
+      // console.log("Clicked value:", url);
+
+      const element = document.getElementById("tableau-viz");
+      element.setAttribute("src", url);
+    }
+  </script>
+</html>
