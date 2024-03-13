@@ -16,10 +16,10 @@ let corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(express.static(path.join(__dirname, "/public")));
 
 app.set("views", path.join(__dirname, "app/views"));
 app.set("view engine", "ejs");
-app.use(express.static(path.join(__dirname, "public")));
 
 setRouter(app)
 

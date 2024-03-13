@@ -11,7 +11,8 @@
     "dev": "nodemon index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "postcss public/stylesheets/tailwind.css -o public/stylesheets/style.css",
-    "build:dev": "npm run build:css && npm run dev",
+    "build:css-watch": "postcss public/stylesheets/tailwind.css -o public/stylesheets/style.css --watch",
+    "build:dev": "concurrently 'npm:build:css-watch' 'npm:dev'",
     "build:prod": "npm run build:css && npm run start"
   },
   "keywords": [],
