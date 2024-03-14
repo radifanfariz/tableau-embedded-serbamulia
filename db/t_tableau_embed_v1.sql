@@ -1,1 +1,1 @@
-INSERT INTO t_tableau_embed_v1 (n_id, j_employee_id, j_employee_nik, c_embed, d_created_at, d_updated_at) VALUES (1, '[2460]', '["00.23.05.0083"]', 'https://prod-apnortheast-a.online.tableau.com/t/serbamuliagroup/views/TACOtomotif/TAC', null, null);
+CREATE TABLE t_tableau_embed_v1 (n_id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY, j_employee_id JSONB, j_employee_nik JSONB, c_embed CHARACTER VARYING, d_created_at TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT now(), d_updated_at TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT now(), CONSTRAINT t_tableau_embed_pkey PRIMARY KEY (n_id));
