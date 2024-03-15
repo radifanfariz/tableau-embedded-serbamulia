@@ -569,6 +569,10 @@ video {
   min-width: 13rem;
 }
 
+.min-w-60 {
+  min-width: 15rem;
+}
+
 .max-w-lg {
   max-width: 32rem;
 }
@@ -589,6 +593,10 @@ video {
 
 .p-10 {
   padding: 2.5rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
 }
 
 .px-6 {
@@ -614,11 +622,6 @@ video {
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
-}
-
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
 }
 
 .font-bold {

@@ -38,17 +38,16 @@ const header = {
   iss: clientId,
 };
 
-const data = {
-  jti: uuidv4(),
-  aud: "tableau",
-  sub: userId,
-  // url: viz_dash_url,
-  scp: scopes,
-  exp: Math.floor(Date.now() / 1000) + tokenExpiryInMinutes * 60,
-  ...userAttributes,
-};
-
 export const embedByInput = (req: any, res: any) => {
+  const data = {
+    jti: uuidv4(),
+    aud: "tableau",
+    sub: userId,
+    // url: viz_dash_url,
+    scp: scopes,
+    exp: Math.floor(Date.now() / 1000) + tokenExpiryInMinutes * 60,
+    ...userAttributes,
+  };
   const token = jwt.sign(data, secret, { header });
   console.log(token);
   res.render("index-input", {
@@ -58,6 +57,15 @@ export const embedByInput = (req: any, res: any) => {
 };
 
 export const embedByParams = (req: any, res: any) => {
+  const data = {
+    jti: uuidv4(),
+    aud: "tableau",
+    sub: userId,
+    // url: viz_dash_url,
+    scp: scopes,
+    exp: Math.floor(Date.now() / 1000) + tokenExpiryInMinutes * 60,
+    ...userAttributes,
+  };
   const token = jwt.sign(data, secret, { header });
   console.log(token);
   res.render("index-params", {
@@ -68,6 +76,15 @@ export const embedByParams = (req: any, res: any) => {
 
 export const embedByParamsLimitedV1 = async (req: any, res: any) => {
   try {
+    const data = {
+      jti: uuidv4(),
+      aud: "tableau",
+      sub: userId,
+      // url: viz_dash_url,
+      scp: scopes,
+      exp: Math.floor(Date.now() / 1000) + tokenExpiryInMinutes * 60,
+      ...userAttributes,
+    };
     const token = jwt.sign(data, secret, { header });
     console.log("embedByParamsLimitedV1 token: ", token);
     const tableauEmbedDataFromDbV1 = await TableauEmbedV1.findAll();
@@ -109,6 +126,15 @@ export const embedByParamsLimitedV1 = async (req: any, res: any) => {
 };
 export const embedByParamsLimitedV2 = async (req: any, res: any) => {
   try {
+    const data = {
+      jti: uuidv4(),
+      aud: "tableau",
+      sub: userId,
+      // url: viz_dash_url,
+      scp: scopes,
+      exp: Math.floor(Date.now() / 1000) + tokenExpiryInMinutes * 60,
+      ...userAttributes,
+    };
     const token = jwt.sign(data, secret, { header });
     console.log("embedByParamsLimitedV2 token: ", token);
     const tableauEmbedDataFromDbV2 = await TableauEmbedV2.findOne({
@@ -150,6 +176,15 @@ export const embedByParamsLimitedV2 = async (req: any, res: any) => {
 };
 export const embedByParamsLimitedV3 = async (req: any, res: any) => {
   try {
+    const data = {
+      jti: uuidv4(),
+      aud: "tableau",
+      sub: userId,
+      // url: viz_dash_url,
+      scp: scopes,
+      exp: Math.floor(Date.now() / 1000) + tokenExpiryInMinutes * 60,
+      ...userAttributes,
+    };
     const token = jwt.sign(data, secret, { header });
     console.log("embedByDropdown token: ", token);
     const tableauEmbedDataFromDbV3 = await TableauEmbedV3.findOne({

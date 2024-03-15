@@ -30,8 +30,8 @@
     ></script>
   </head>
   <body>
-    <div>
-      <label for="HeadlineAct" class="text-lg font-medium text-gray-900">
+    <div class="p-2">
+      <label for="HeadlineAct" class="text-3xl font-medium text-gray-900">
         Choose Chart:
       </label>
 
@@ -40,7 +40,7 @@
         x-init="groups = getDropdownItem()"
         name="HeadlineAct"
         id="HeadlineAct"
-        class="min-w-52 rounded-lg border-gray-300 text-gray-700 text-lg"
+        class="min-w-60 rounded-lg border-gray-300 text-gray-700 text-3xl"
         x-on:change="(e) => handleOptionClick(e, $data)"
       >
         <option value="">Please select</option>
