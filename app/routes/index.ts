@@ -1,5 +1,5 @@
 import e from "express"
-import { embedByInput, embedByParams, embedByParamsLimitedV1, embedByParamsLimitedV2, embedByParamsLimitedV3 } from "../controllers";
+import { embedByInput, embedByParams, embedByParamsFinancialModel, embedByParamsLimitedV1, embedByParamsLimitedV2, embedByParamsLimitedV3 } from "../controllers";
 
 const setRouter = (app:e.Express) => {
 
@@ -10,6 +10,7 @@ const setRouter = (app:e.Express) => {
     router.get("/params/limited/v2",embedByParamsLimitedV2)
     router.get("/params/limited/v3",embedByParamsLimitedV3)
     router.get("/input",embedByInput)
+    router.get("/financialmodel/params",embedByParamsFinancialModel)
 
     app.use("/embed", router)
     

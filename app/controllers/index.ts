@@ -247,3 +247,77 @@ export const embedByParamsLimitedV3 = async (req: any, res: any) => {
     });
   }
 };
+
+export const embedByParamsFinancialModel = async (req: any, res: any) => {
+  try {
+    const data = {
+      jti: uuidv4(),
+      aud: "tableau",
+      sub: userId,
+      // url: viz_dash_url,
+      scp: scopes,
+      exp: Math.floor(Date.now() / 1000) + tokenExpiryInMinutes * 60,
+      ...userAttributes,
+    };
+    const token = jwt.sign(data, secret, { header });
+    console.log("embedByDropdown token: ", token);
+    const tableauEmbedDataFromDbV3 = await TableauEmbedV3.findOne({
+      where: {
+        [Op.or]: [
+          {
+            n_employee_id: parseInt(req.query.employeeId ?? 0) ?? null,
+          },
+          {
+            c_employee_nik: req.query.employeeNik ?? "",
+          },
+        ],
+      },
+    });
+    console.log(
+      "tableauEmbedDataFromDbV3 data from db: ",
+      tableauEmbedDataFromDbV3
+    );
+
+    const tableauEmbedDataFromMasterAll = await TableauEmbedMaster.findAll({
+      where: {
+        n_id: {
+          [Op.in]: tableauEmbedDataFromDbV3?.dataValues.j_embed_id,
+        },
+      },
+    });
+    console.log(
+      "tableauEmbedDataFromMasterAll data from db: ",
+      tableauEmbedDataFromMasterAll
+    );
+
+    if (!_.isNil(tableauEmbedDataFromDbV3)) {
+      res.render("index-simulation", {
+        token: token,
+        master: JSON.stringify(
+          tableauEmbedDataFromMasterAll?.map((item1) =>
+            tableauEmbedDataFromMasterAll?.map((item2) => {
+              if (item1.dataValues.c_group === item2.dataValues.c_group) {
+                return {
+                  group: item1.dataValues.c_group,
+                  items: {
+                    ...item2.dataValues,
+                  },
+                };
+              }
+            }).filter(Boolean)
+          ).filter(Boolean)
+        ),
+      });
+    } else {
+      res.render("404", {
+        // token: token,
+        // url: req.query.url,
+      });
+    }
+  } catch (e) {
+    res.render("404", {
+      // token: token,
+      // url: req.query.url,
+    });
+  }
+};
