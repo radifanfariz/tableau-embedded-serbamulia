@@ -44,3 +44,5 @@ npm run build:css && node index.ts
 <br/>example: http://localhost:8778/embed/params/limited/v2?employeeId=2460&index=0
 - **By** **params limited (v3) (Dropdown):** http://localhost:8778/embed/params/limited/v3?employeeId=<employee_id>&employeeNik=<employee_nik>
 <br/>example: http://localhost:8778/embed/params/limited/v3?employeeId=2460&employeeNik=00.23.05.0083
+- **By** **params financial model (Regression):** http://localhost:8778/embed/financialmodel/params?employeeId=<employee_id>&employeeNik=<employee_nik>
+<br/>example: http://localhost:8778/embed/financialmodel/params?employeeId=1

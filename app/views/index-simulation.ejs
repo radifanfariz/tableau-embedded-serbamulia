@@ -16,6 +16,8 @@
       rel="stylesheet"
       crossorigin="anonymous"
     />
+    <!-- Alpine Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/mask@3.x.x/dist/cdn.min.js"></script>
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
@@ -38,6 +40,7 @@
     enr: 0,
     sales_volume: 0,
     sales: 0,
+    result: 'null'
 }">
     <div class="p-2 flex justify-between items-center">
         <div>
@@ -128,8 +131,9 @@
                     inputmode="numeric"
                     class="w-full rounded-lg border-gray-200 p-3 text-2xl"
                     placeholder=" 0.000000000000077282"
-                    type="number"
+                    type="text"
                     id="koefisien1"
+                    x-mask:dynamic="$money($input, '.', ',', 10)"
                     />
                 </div>
     
@@ -140,8 +144,9 @@
                     inputmode="numeric"
                     class="w-full rounded-lg border-gray-200 p-3 text-2xl"
                     placeholder="0.000600213"
-                    type="number"
+                    type="text"
                     id="koefisien2"
+                    x-mask:dynamic="$money($input, '.', ',', 10)"
                     />
                 </div>
                 </div>
@@ -152,9 +157,10 @@
                     x-model="intercept"
                     inputmode="numeric"
                     class="w-full rounded-lg border-gray-200 p-3 text-2xl"
-                    placeholder=" 34790700"
-                    type="number"
+                    placeholder=" 34,790,700"
+                    type="text"
                     id="intercept"
+                    x-mask:dynamic="$money($input, '.', ',', 10)"
                 />
                 </div>
 
@@ -167,9 +173,10 @@
                             x-model="sales_volume"
                             inputmode="numeric"
                             class="w-full rounded-lg border-gray-200 p-3 text-2xl"
-                            placeholder=" 75000000000"
-                            type="number"
+                            placeholder=" 75,000,000,000"
+                            type="text"
                             id="sales_volume"
+                            x-mask:dynamic="$money($input, '.', ',', 10)"
                         />
                     </div>
                   </div>
@@ -183,9 +190,10 @@
                             x-model="enr"
                             inputmode="numeric"
                             class="w-full rounded-lg border-gray-200 p-3 text-2xl"
-                            placeholder=" 75.000.000.000"
-                            type="number"
+                            placeholder=" 75,000,000,000"
+                            type="text"
                             id="enr"
+                            x-mask:dynamic="$money($input, '.', ',', 10)"
                         />
                     </div>
                   </div>
@@ -199,9 +207,10 @@
                             x-model="sales"
                             inputmode="numeric"
                             class="w-full rounded-lg border-gray-200 p-3 text-2xl"
-                            placeholder=" 75.000.000.000"
-                            type="number"
+                            placeholder=" 75,000,000,000"
+                            type="text"
                             id="sales"
+                            x-mask:dynamic="$money($input, '.', ',', 10)"
                         />
                     </div>
                   </div>
@@ -221,7 +230,7 @@
                   <div id="pbt-result">
                     <h5 class="px-2 text-white font-bold">Result:</h5>
                     <div class="border-2 border-yellow-500 rounded-lg bg-black">
-                        <h5 id="pbt-result-number" class="px-2 font-bold text-yellow-500">
+                        <h5 x-text="result" id="pbt-result-number" class="px-2 font-bold text-yellow-500">
                             null
                         </h5>
                     </div>
@@ -313,24 +322,32 @@
     function handleCalculateTypeOptionClick(event, data) {
       console.log("Clicked value:", data.selectedId);
     }
+    function numberFormat(value){
+      const formatter = new Intl.NumberFormat();
+      return formatter.format(value)
+    }
     function handleCalculateClick(event, data) {
-      const element = document.getElementById("pbt-result-number");
+      // const element = document.getElementById("pbt-result-number"); <-- this is using vanila js
       switch (data.selectedId) {
         case "automotive":
           const pbtResultAutomotive = ((parseFloat(data.koefisien1) * Math.pow(parseFloat(data.sales_volume), 2)) + (parseFloat(data.koefisien2) * parseFloat(data.sales_volume)) + parseFloat(data.intercept))
-          element.textContent = pbtResultAutomotive
+          // element.textContent = pbtResultAutomotive 
+          data.result = numberFormat(pbtResultAutomotive)
           break;
         case "finser":
         const pbtResultFinser = ((parseFloat(data.koefisien1) * Math.pow(parseFloat(data.enr), 2)) + (parseFloat(data.koefisien2) * parseFloat(data.enr)) + parseFloat(data.intercept))
-        element.textContent = pbtResultFinser
+        // element.textContent = pbtResultFinser
+        data.result = numberFormat(pbtResultFinser)
           break;
         case "retail":
         const pbtResultRetail = ((parseFloat(data.koefisien1) * Math.pow(parseFloat(data.sales), 2)) + (parseFloat(data.koefisien2) * parseFloat(data.sales)) + parseFloat(data.intercept))
-        element.textContent = pbtResultRetail
+        // element.textContent = pbtResultRetail
+        data.result = numberFormat(pbtResultRetail)
           break;
       
         default:
-          element.textContent = "null"
+          // element.textContent = "null"
+          data.result = "null"
           break;
       }
     }
