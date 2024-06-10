@@ -40,7 +40,7 @@
     enr: 0,
     sales_volume: 0,
     sales: 0,
-    result: 'null'
+    result: 0
 }">
     <div class="p-2 flex justify-between items-center">
         <div>
@@ -133,7 +133,7 @@
                     placeholder=" 0.000000000000077282"
                     type="text"
                     id="koefisien1"
-                    x-mask:dynamic="$money($input, '.', ',', 10)"
+                    x-mask:dynamic="$money($input, '.', ',', 30)"
                     />
                 </div>
     
@@ -146,7 +146,7 @@
                     placeholder="0.000600213"
                     type="text"
                     id="koefisien2"
-                    x-mask:dynamic="$money($input, '.', ',', 10)"
+                    x-mask:dynamic="$money($input, '.', ',', 30)"
                     />
                 </div>
                 </div>
@@ -160,7 +160,7 @@
                     placeholder=" 34,790,700"
                     type="text"
                     id="intercept"
-                    x-mask:dynamic="$money($input, '.', ',', 10)"
+                    x-mask:dynamic="$money($input, '.', ',', 30)"
                 />
                 </div>
 
@@ -176,7 +176,7 @@
                             placeholder=" 75,000,000,000"
                             type="text"
                             id="sales_volume"
-                            x-mask:dynamic="$money($input, '.', ',', 10)"
+                            x-mask:dynamic="$money($input, '.', ',', 30)"
                         />
                     </div>
                   </div>
@@ -193,7 +193,7 @@
                             placeholder=" 75,000,000,000"
                             type="text"
                             id="enr"
-                            x-mask:dynamic="$money($input, '.', ',', 10)"
+                            x-mask:dynamic="$money($input, '.', ',', 30)"
                         />
                     </div>
                   </div>
@@ -210,7 +210,7 @@
                             placeholder=" 75,000,000,000"
                             type="text"
                             id="sales"
-                            x-mask:dynamic="$money($input, '.', ',', 10)"
+                            x-mask:dynamic="$money($input, '.', ',', 30)"
                         />
                     </div>
                   </div>
@@ -228,11 +228,19 @@
 
                   <!-- result -->
                   <div id="pbt-result">
-                    <h5 class="px-2 text-white font-bold">Result:</h5>
-                    <div class="border-2 border-yellow-500 rounded-lg bg-black">
-                        <h5 x-text="result" id="pbt-result-number" class="px-2 font-bold text-yellow-500">
-                            null
-                        </h5>
+                    <h5 class="px-2 text-white font-bold">Result</h5>
+                    <div>
+                      <label class="block text-xs font-medium text-white" for="enr">Profit</label>
+                      <input
+                      x-model="result"
+                      inputmode="numeric"
+                      class="w-full rounded-lg text-white border-yellow-500 p-3 text-2xl border-2 bg-black"
+                      placeholder=" 1000,000,000,000"
+                      type="text"
+                      id="pbt-result-number"
+                      readonly
+                      x-mask:dynamic="$money($input, '.', ',', 30)"
+                  />
                     </div>
                 </div>
                 <!-- --------------- -->
@@ -326,21 +334,30 @@
       const formatter = new Intl.NumberFormat();
       return formatter.format(value)
     }
+    function convertCurrencyToFloat(currencyString) {
+    // Remove currency symbol and separators
+    const cleanedString = currencyString.replace(/[^\d.-]/g, '');
+    
+    // Parse as float
+    const floatValue = parseFloat(cleanedString);
+
+    return floatValue;
+  }
     function handleCalculateClick(event, data) {
-      // const element = document.getElementById("pbt-result-number"); <-- this is using vanila js
+      // const element = document.getElementById("pbt-result-number"); //<-- this is using vanila js
       switch (data.selectedId) {
         case "automotive":
-          const pbtResultAutomotive = ((parseFloat(data.koefisien1) * Math.pow(parseFloat(data.sales_volume), 2)) + (parseFloat(data.koefisien2) * parseFloat(data.sales_volume)) + parseFloat(data.intercept))
+          const pbtResultAutomotive = ((convertCurrencyToFloat(data.koefisien1) * Math.pow(convertCurrencyToFloat(data.sales_volume), 2)) + (convertCurrencyToFloat(data.koefisien2) * convertCurrencyToFloat(data.sales_volume)) + convertCurrencyToFloat(data.intercept))
           // element.textContent = pbtResultAutomotive 
           data.result = numberFormat(pbtResultAutomotive)
           break;
         case "finser":
-        const pbtResultFinser = ((parseFloat(data.koefisien1) * Math.pow(parseFloat(data.enr), 2)) + (parseFloat(data.koefisien2) * parseFloat(data.enr)) + parseFloat(data.intercept))
+        const pbtResultFinser = ((convertCurrencyToFloat(data.koefisien1) * Math.pow(convertCurrencyToFloat(data.enr), 2)) + (convertCurrencyToFloat(data.koefisien2) * convertCurrencyToFloat(data.enr)) + convertCurrencyToFloat(data.intercept))
         // element.textContent = pbtResultFinser
         data.result = numberFormat(pbtResultFinser)
           break;
         case "retail":
-        const pbtResultRetail = ((parseFloat(data.koefisien1) * Math.pow(parseFloat(data.sales), 2)) + (parseFloat(data.koefisien2) * parseFloat(data.sales)) + parseFloat(data.intercept))
+        const pbtResultRetail = ((convertCurrencyToFloat(data.koefisien1) * Math.pow(convertCurrencyToFloat(data.sales), 2)) + (convertCurrencyToFloat(data.koefisien2) * convertCurrencyToFloat(data.sales)) + convertCurrencyToFloat(data.intercept))
         // element.textContent = pbtResultRetail
         data.result = numberFormat(pbtResultRetail)
           break;
