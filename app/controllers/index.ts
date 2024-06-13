@@ -8,6 +8,9 @@ import {
 } from "../models";
 import { Op } from "sequelize";
 import _ from "lodash";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 /* jwt setup*/
 
@@ -293,6 +296,7 @@ export const embedByParamsFinancialModel = async (req: any, res: any) => {
     if (!_.isNil(tableauEmbedDataFromDbV3)) {
       res.render("index-simulation", {
         token: token,
+        pathUrl: process.env.PATH_URL,
         master: JSON.stringify(
           tableauEmbedDataFromMasterAll?.map((item1) =>
             tableauEmbedDataFromMasterAll?.map((item2) => {
