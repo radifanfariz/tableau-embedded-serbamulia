@@ -37,7 +37,9 @@
 
       <select
         x-data="{groups: [], url: ''}"
-        x-init="groups = getDropdownItem()"
+        x-init="groups = getDropdownItem().sort((a, b) => {
+          return a.group.localeCompare(b.group);
+      })"
         name="HeadlineAct"
         id="HeadlineAct"
         class="min-w-60 rounded-lg border-gray-300 text-gray-700 text-3xl"
