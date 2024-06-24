@@ -9,7 +9,7 @@
       rel="stylesheet"
       type="text/css"
       media="screen"
-      href="/stylesheets/style.css"
+      href="<%- pathUrl %>/stylesheets/style.css"
     />
     <link
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -37,11 +37,14 @@
 
       <select
         x-data="{groups: [], url: ''}"
-        x-init="groups = getDropdownItem()"
+        x-init="groups = getDropdownItem().sort((a, b) => {
+          return a.group.localeCompare(b.group);
+      })"
         name="HeadlineAct"
         id="HeadlineAct"
-        class="min-w-60 rounded-lg border-gray-300 text-gray-700 text-3xl"
+		class="min-w-60 rounded-lg border-gray-300 text-gray-700 text-2xl"
         x-on:change="(e) => handleOptionClick(e, $data)"
+		style="padding:10px 20px;margin:0 0 15px 10px"
       >
         <option value="">Please select</option>
         <template x-for="(group,groupIndex) in groups" :key="groupIndex">
