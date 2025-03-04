@@ -14,9 +14,9 @@ dotenv.config();
 
 /* jwt setup*/
 
-const secret = "DHDN/sFcJKTsFt8Zkn15D+UW12iw5JFG786G2xU0tXs=";
-const secretId = "342926ef-e568-458a-80a4-c6ac397659e1";
-const clientId = "192eecee-4d53-401a-8812-368daac8de2a";
+const secret = process.env.SECRET ?? "EWF/Juf3sg+ycqi/UxhV4pk1LF09FxKT8TqY27J3ZFA=";
+const secretId = process.env.SECRET_ID ?? "47c26826-ada3-4135-9840-c6e75ae6c4c9";
+const clientId = process.env.CLIENT_ID ?? "c632b6d5-5627-48fc-8fea-6e909bf0bd57";
 const scopes = ["tableau:views:embed", "tableau:views:embed_authoring"];
 const userId = "tableau.viewer1@serbamulia.co.id";
 const tokenExpiryInMinutes = 10; // Max of 10 minutes.
@@ -28,7 +28,7 @@ const userAttributes = {
 };
 
 // #TOL or Tableau server name. SSL is highly recommeded
-const tableauservername = "https://prod-apnortheast-a.online.tableau.com/";
+const tableauservername = process.env.TABLEAU_SERVER_NAME ?? "https://prod-apsoutheast-b.online.tableau.com/";
 
 // #public facing url from TOL/ Tableau server
 const viz_dash_url =
